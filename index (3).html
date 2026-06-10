@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Практический инструмент для музыкальных артистов: как осознанно использовать подкасты для продвижения. Чек-лист, стратегии, алгоритм поиска площадок.">
+<title>Подкасты для артистов — практический инструмент продвижения</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5F0;--surface:#fff;--accent:#46334F;--accent-mid:#6B4F7A;
+  --accent-light:#EDE8F2;--orange:#F2921D;--orange-light:#FFF3E0;
+  --text:#1A1A1A;--text-muted:#6B6B6B;--border:rgba(0,0,0,.08);
+  --radius:12px;--radius-lg:20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6}
+h1,h2,h3,h4{font-family:'Unbounded',sans-serif;line-height:1.2}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(247,245,240,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:-.02em;cursor:pointer}
+.nav-logo span{color:var(--orange)}
+.nav-links{display:flex;gap:2px}
+.nav-link{padding:7px 14px;font-size:12px;border-radius:8px;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:'Inter',sans-serif;font-weight:500;transition:all .15s}
+.nav-link:hover,.nav-link.active{background:var(--accent-light);color:var(--accent)}
+.nav-cta{padding:8px 18px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .15s}
+.nav-cta:hover{opacity:.88}
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px}
+.nav-burger span{width:22px;height:2px;background:var(--accent);border-radius:2px}
+.mobile-menu{display:none;position:fixed;inset:60px 0 0;background:var(--bg);z-index:99;padding:16px;flex-direction:column;gap:4px}
+.mobile-menu.open{display:flex}
+.mobile-link{padding:13px 16px;font-size:14px;border-radius:10px;cursor:pointer;border:none;background:transparent;color:var(--text);font-family:'Inter',sans-serif;font-weight:500;text-align:left;width:100%}
+.mobile-link:hover{background:var(--accent-light)}
+.mobile-cta{margin-top:8px;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;width:100%}
+
+/* HERO */
+.hero{max-width:1100px;margin:0 auto;padding:72px 48px 72px;display:grid;grid-template-columns:1fr 420px;gap:56px;align-items:center}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--orange-light);color:var(--orange);font-size:11px;font-weight:500;padding:6px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:.03em}
+.hero h1{font-size:38px;font-weight:700;color:var(--accent);letter-spacing:-.03em;margin-bottom:16px}
+.hero h1 em{font-style:normal;color:var(--orange)}
+.hero-problem{font-size:15px;color:var(--text-muted);line-height:1.7;margin-bottom:8px}
+.hero-answer{font-size:15px;color:var(--text);line-height:1.7;margin-bottom:28px;font-weight:500}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{padding:13px 28px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .15s}
+.btn-primary:hover{opacity:.88}
+.btn-outline{padding:13px 28px;background:transparent;color:var(--accent);border:1.5px solid var(--accent);border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.btn-outline:hover{background:var(--accent-light)}
+
+/* HERO VISUAL */
+.hero-visual{position:relative}
+.hero-card-main{background:var(--accent);border-radius:var(--radius-lg);padding:28px;color:#fff}
+.hero-card-main .hcm-label{font-size:10px;font-weight:500;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.07em;margin-bottom:16px}
+.hero-card-main .hcm-stat{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.hero-card-main .hcm-num{font-family:'Unbounded',sans-serif;font-size:24px;font-weight:700;color:var(--orange);min-width:72px}
+.hero-card-main .hcm-text{font-size:12px;color:rgba(255,255,255,.75);line-height:1.4}
+.hcm-divider{border:none;border-top:1px solid rgba(255,255,255,.12);margin:8px 0}
+.hero-card-float{background:var(--surface);border-radius:var(--radius);padding:14px 18px;border:1px solid var(--border);margin-top:12px;display:flex;align-items:center;gap:12px}
+.hcf-icon{width:36px;height:36px;border-radius:8px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.hcf-text h4{font-size:12px;font-weight:500;color:var(--text);font-family:'Unbounded',sans-serif}
+.hcf-text p{font-size:11px;color:var(--text-muted);margin-top:1px}
+
+/* FORMAT BADGE STRIP */
+.format-strip{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 48px}
+.format-strip-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.fs-label{font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;flex-shrink:0}
+.fs-divider{width:1px;height:20px;background:var(--border)}
+.fs-item{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--text-muted);font-weight:500}
+.fs-dot{width:8px;height:8px;border-radius:50%}
+.fs-dot.audio{background:var(--accent)}
+.fs-dot.video{background:var(--orange)}
+
+/* WHY SECTION (бывший инструмент продвижения, теперь на главной) */
+.why-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.why-inner{max-width:1100px;margin:0 auto;padding:56px 48px}
+.why-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:16px}
+.why-title-block .section-label{font-size:11px;font-weight:500;color:var(--orange);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.why-title-block h2{font-size:26px;font-weight:700;color:var(--accent);letter-spacing:-.02em}
+.why-desc{font-size:14px;color:var(--text-muted);max-width:360px;line-height:1.6;text-align:right}
+.theory-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+.theory-card{background:var(--bg);border-radius:var(--radius);padding:20px;border:1px solid var(--border)}
+.theory-num{font-family:'Unbounded',sans-serif;font-size:26px;font-weight:700;color:var(--accent);margin-bottom:10px}
+.theory-card h3{font-size:12px;font-weight:500;margin-bottom:6px;color:var(--accent);font-family:'Unbounded',sans-serif}
+.theory-card p{font-size:12px;color:var(--text-muted);line-height:1.6}
+.theory-source{font-size:11px;color:var(--orange);margin-top:8px;font-style:italic}
+.effects-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.effect-card{background:var(--bg);border-radius:var(--radius);padding:18px;border:1px solid var(--border)}
+.effect-icon{font-size:20px;margin-bottom:10px}
+.effect-card h3{font-size:12px;font-weight:500;color:var(--accent);margin-bottom:6px;font-family:'Unbounded',sans-serif}
+.effect-card p{font-size:11px;color:var(--text-muted);line-height:1.5}
+
+/* CASES SECTION */
+.cases-section{max-width:1100px;margin:0 auto;padding:56px 48px}
+.section-label{font-size:11px;font-weight:500;color:var(--orange);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.section-title{font-size:26px;font-weight:700;color:var(--accent);letter-spacing:-.02em;margin-bottom:10px}
+.section-desc{font-size:14px;color:var(--text-muted);max-width:560px;margin-bottom:28px;line-height:1.7}
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.case-card{background:var(--surface);border-radius:var(--radius-lg);padding:0;border:1px solid var(--border);overflow:hidden}
+.case-thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;overflow:hidden}
+.case-thumb.c1{background:linear-gradient(135deg,#1a0a2e,#3d1a5c)}
+.case-thumb.c2{background:linear-gradient(135deg,#0a1a2e,#1a3d5c)}
+.case-thumb.c3{background:linear-gradient(135deg,#2e0a1a,#5c1a3d)}
+.case-thumb-label{position:absolute;bottom:10px;left:12px;font-size:10px;font-weight:600;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:.05em;font-family:'Inter',sans-serif;z-index:2;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.case-thumb-platform{position:absolute;top:10px;right:12px;background:rgba(0,0,0,.35);backdrop-filter:blur(4px);border-radius:6px;padding:3px 8px;font-size:10px;color:#fff;font-weight:500;z-index:2}
+.case-link{display:block;padding:4px 12px 8px;font-size:11px;color:var(--orange);text-decoration:none;display:flex;align-items:center;gap:4px;transition:opacity .15s;border-top:1px solid var(--border);margin-top:0}
+.case-link:hover{opacity:.75}
+.case-body{padding:16px}
+.case-tag{font-size:10px;font-weight:600;color:var(--orange);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;font-family:'Unbounded',sans-serif}
+.case-card h3{font-size:13px;font-weight:500;color:var(--text);margin-bottom:8px;font-family:'Unbounded',sans-serif;line-height:1.4}
+.case-card p{font-size:12px;color:var(--text-muted);line-height:1.6}
+.case-result{background:var(--accent-light);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:12px;color:var(--accent);font-weight:500}
+
+/* FORMATS SECTION */
+.formats-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.formats-inner{max-width:1100px;margin:0 auto;padding:56px 48px}
+.format-compare{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px}
+.format-card{background:var(--bg);border-radius:var(--radius-lg);padding:24px;border:1px solid var(--border)}
+.format-card.fl{border-left:3px solid var(--accent)}
+.format-card.fr{border-left:3px solid var(--orange)}
+.format-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;padding:5px 12px;border-radius:20px;margin-bottom:12px;font-family:'Unbounded',sans-serif}
+.format-badge.audio{background:var(--accent-light);color:var(--accent)}
+.format-badge.video{background:var(--orange-light);color:var(--orange)}
+.format-card h3{font-size:14px;font-weight:500;margin-bottom:8px;font-family:'Unbounded',sans-serif}
+.format-card p{font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:10px}
+.format-list{list-style:none}
+.format-list li{font-size:12px;color:var(--text-muted);padding:3px 0 3px 14px;position:relative}
+.format-list li::before{content:'—';position:absolute;left:0;color:var(--accent)}
+.format-diff{background:var(--accent);border-radius:var(--radius);padding:20px 24px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.format-diff-col h4{font-size:11px;font-weight:600;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;font-family:'Inter',sans-serif}
+.format-diff-col ul{list-style:none}
+.format-diff-col li{font-size:13px;color:rgba(255,255,255,.85);padding:4px 0;display:flex;align-items:flex-start;gap:8px}
+.format-diff-col li::before{content:'•';color:var(--orange);flex-shrink:0}
+
+/* WHAT IS PODCAST */
+.what-section{max-width:1100px;margin:0 auto;padding:56px 48px}
+.what-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
+.what-card{background:var(--surface);border-radius:var(--radius);padding:20px;border:1px solid var(--border)}
+.what-num{font-family:'Unbounded',sans-serif;font-size:28px;font-weight:700;color:var(--accent-light);margin-bottom:10px}
+.what-card h3{font-size:13px;font-weight:500;color:var(--accent);margin-bottom:6px;font-family:'Unbounded',sans-serif}
+.what-card p{font-size:12px;color:var(--text-muted);line-height:1.6}
+.platforms-row{display:flex;gap:10px;flex-wrap:wrap}
+.platform-pill{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:13px;color:var(--text);font-weight:500}
+.platform-pill span{font-size:16px}
+
+/* CHECKLIST */
+.cl-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.cl-inner{max-width:1100px;margin:0 auto;padding:56px 48px}
+.cl-nav{display:flex;gap:4px;margin-bottom:24px;background:var(--accent);padding:4px;border-radius:10px;width:fit-content}
+.cl-tab{padding:8px 20px;font-size:13px;border-radius:7px;cursor:pointer;border:none;background:transparent;color:rgba(255,255,255,.65);font-weight:500;font-family:'Inter',sans-serif;transition:all .15s}
+.cl-tab.active{background:var(--surface);color:var(--accent)}
+.cl-progress-wrap{margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.cl-progress{flex:1;height:5px;background:rgba(70,51,79,.15);border-radius:3px;overflow:hidden}
+.cl-progress-fill{height:100%;background:var(--orange);border-radius:3px;transition:width .4s ease;width:0%}
+.cl-progress-text{font-size:12px;color:var(--text-muted);white-space:nowrap}
+.cl-group{margin-bottom:22px}
+.cl-group-title{font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;padding:5px 10px;background:var(--accent-light);border-radius:6px;display:inline-block}
+.cl-item{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;background:var(--bg);border:1px solid var(--border);border-radius:10px;margin-bottom:6px;cursor:pointer;transition:all .15s}
+.cl-item:hover{border-color:var(--accent-mid);background:#FAF8FC}
+.cl-item.done{opacity:.5}
+.cl-item.done .cl-check{background:var(--accent);border-color:var(--accent)}
+.cl-item.done .cl-text{text-decoration:line-through}
+.cl-check{width:18px;height:18px;min-width:18px;border-radius:5px;border:2px solid var(--accent-mid);margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.cl-check svg{display:none}
+.cl-item.done .cl-check svg{display:block}
+.cl-text{font-size:14px;color:var(--text);line-height:1.4;flex:1}
+.cl-badge{font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:2px}
+.cl-badge.must{background:var(--accent);color:#fff}
+.cl-badge.rec{background:var(--accent-light);color:var(--accent)}
+.cl-badge.opt{background:#F1EFE8;color:#6B6B6B}
+.cl-tab-content{display:none}
+.cl-tab-content.active{display:block}
+.pdf-banner{background:var(--accent);border-radius:var(--radius);padding:22px 28px;display:flex;align-items:center;justify-content:space-between;margin-top:28px;flex-wrap:wrap;gap:16px}
+.pdf-banner p{font-family:'Unbounded',sans-serif;font-size:13px;color:#fff;margin-bottom:3px}
+.pdf-banner span{font-size:12px;color:rgba(255,255,255,.7)}
+.btn-orange{padding:10px 22px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:opacity .15s}
+.btn-orange:hover{opacity:.88}
+
+/* MATERIALS */
+.mat-section{max-width:1100px;margin:0 auto;padding:56px 48px}
+.mat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.mat-card{background:var(--surface);border-radius:var(--radius);padding:22px;border:1px solid var(--border)}
+.mat-icon{font-size:24px;margin-bottom:10px}
+.mat-card h3{font-size:14px;font-weight:500;color:var(--text);margin-bottom:6px;font-family:'Unbounded',sans-serif}
+.mat-card p{font-size:13px;color:var(--text-muted);line-height:1.6}
+.mat-link{font-size:13px;color:var(--accent);margin-top:10px;display:inline-block;cursor:pointer;font-weight:500;background:none;border:none;font-family:'Inter',sans-serif;padding:0;text-decoration:underline;text-underline-offset:3px;transition:opacity .15s}
+.mat-link:hover{opacity:.75}
+
+/* SEARCH */
+.search-section{background:var(--surface);border-top:1px solid var(--border)}
+.search-inner{max-width:1100px;margin:0 auto;padding:56px 48px}
+.algo-steps{display:flex;flex-direction:column;gap:0}
+.algo-step{display:grid;grid-template-columns:48px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--border);align-items:start}
+.algo-step:last-child{border-bottom:none}
+.algo-num{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.algo-content h3{font-size:14px;font-weight:500;color:var(--text);margin-bottom:5px;font-family:'Unbounded',sans-serif}
+.algo-content p{font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:10px}
+.algo-tags{display:flex;flex-wrap:wrap;gap:6px}
+.algo-tag{font-size:12px;padding:4px 12px;background:var(--bg);color:var(--text-muted);border-radius:20px;border:1px solid var(--border)}
+.algo-tip{background:var(--orange-light);border-radius:8px;padding:10px 14px;font-size:12px;color:#7A4500;margin-top:8px;line-height:1.5}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(70,51,79,.55);z-index:200;align-items:center;justify-content:center;padding:24px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border-radius:var(--radius-lg);padding:36px;max-width:620px;width:100%;max-height:85vh;overflow-y:auto;position:relative}
+.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:24px;cursor:pointer;color:var(--text-muted);line-height:1}
+.modal-close:hover{color:var(--text)}
+.modal h2{font-size:17px;font-weight:700;color:var(--accent);margin-bottom:5px;font-family:'Unbounded',sans-serif}
+.modal-sub{font-size:13px;color:var(--text-muted);margin-bottom:22px}
+.modal-section{margin-bottom:20px}
+.modal-section h3{font-size:11px;font-weight:600;color:var(--orange);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--border)}
+.modal-section ul{padding-left:18px}
+.modal-section li{font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:5px}
+.modal-section p{font-size:14px;color:var(--text-muted);line-height:1.7}
+.modal-template{background:var(--bg);border-radius:var(--radius);padding:14px;font-size:13px;color:var(--text);line-height:1.8;border-left:3px solid var(--accent)}
+.modal-highlight{background:var(--accent-light);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--accent);margin-bottom:12px;font-weight:500}
+
+/* CONFETTI */
+.confetti-container{position:fixed;inset:0;pointer-events:none;z-index:300}
+.confetti-piece{position:absolute;width:10px;height:10px;top:-20px;opacity:0;animation:confettiFall 3s ease-in forwards}
+@keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+
+/* PAGE */
+.page{display:none}
+.page.active{display:block}
+
+footer{background:var(--accent);color:rgba(255,255,255,.7);padding:36px 48px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:24px}
+.footer-logo{font-family:'Unbounded',sans-serif;font-size:13px;color:#fff;font-weight:700;margin-bottom:6px;cursor:pointer}
+footer p{font-size:12px;margin-bottom:2px}
+footer a{color:rgba(255,255,255,.7);text-decoration:none}
+footer a:hover{color:var(--orange)}
+.footer-contacts h4{font-family:'Unbounded',sans-serif;font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+
+@media(max-width:768px){
+  .format-strip-inner{flex-direction:column;gap:8px}
+  .fs-divider{display:none}
+  nav{padding:0 16px}
+  .nav-links,.nav-cta{display:none}
+  .nav-burger{display:flex}
+  .hero{grid-template-columns:1fr;padding:32px 20px;gap:28px}
+  .hero h1{font-size:26px}
+  .hero-visual{order:-1}
+  .why-inner,.cases-section,.formats-inner,.what-section,.cl-inner,.mat-section,.search-inner{padding:36px 20px}
+  .format-strip{padding:12px 20px}
+  .theory-cards,.effects-grid{grid-template-columns:1fr}
+  .cases-grid{grid-template-columns:1fr}
+  .format-compare{grid-template-columns:1fr}
+  .format-diff{grid-template-columns:1fr}
+  .what-grid{grid-template-columns:1fr}
+  .mat-grid{grid-template-columns:1fr}
+  .cl-nav{width:100%}
+  .cl-tab{flex:1;text-align:center;padding:8px 4px;font-size:12px}
+  footer{flex-direction:column;padding:28px 20px}
+}
+</style>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');ym(109755952,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109755952" style="position:absolute;left:-9999px;" alt=""/></div></noscript>
+<!-- /Yandex.Metrika counter -->
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="showPage('home')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><rect x="9" y="2" width="6" height="12" rx="3" fill="#F2921D"/><path d="M5 11a7 7 0 0014 0" stroke="#46334F" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="18" x2="12" y2="22" stroke="#46334F" stroke-width="2" stroke-linecap="round"/></svg><span>подкасты</span>&thinsp;для артистов</div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showPage('home')">Главная</button>
+    <button class="nav-link" onclick="showPage('formats')">Форматы</button>
+    <button class="nav-link" onclick="showPage('checklist')">Чек-лист</button>
+    <button class="nav-link" onclick="showPage('materials')">Материалы</button>
+    <button class="nav-link" onclick="showPage('search')">Найти подкаст</button>
+  </div>
+  <button class="nav-cta" onclick="showPage('checklist')">Перейти к чек-листу →</button>
+  <button class="nav-burger" onclick="toggleMenu()" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-link" onclick="showPage('home');toggleMenu()">Главная</button>
+  <button class="mobile-link" onclick="showPage('formats');toggleMenu()">Форматы</button>
+  <button class="mobile-link" onclick="showPage('checklist');toggleMenu()">Чек-лист</button>
+  <button class="mobile-link" onclick="showPage('materials');toggleMenu()">Материалы</button>
+  <button class="mobile-link" onclick="showPage('search');toggleMenu()">Найти подкаст</button>
+  <button class="mobile-cta" onclick="showPage('checklist');toggleMenu()">Перейти к чек-листу →</button>
+</div>
+
+<!-- ГЛАВНАЯ СТРАНИЦА -->
+<div class="page active" id="page-home">
+
+  <div class="hero">
+    <div>
+      <div class="hero-tag">🎙 для музыкальных артистов и их команд</div>
+      <h1>Тебя зовут<br>в подкаст.<br><em>Что дальше?</em></h1>
+      <p class="hero-problem">Большинство артистов приходят на запись без подготовки, говорят общие слова и не работают с аудиторией после выхода эпизода. Участие остаётся разовым и не приводит новых слушателей.</p>
+      <p class="hero-answer">Этот сайт переводит подкаст из случайного события в маркетинговый инструмент — с чётким алгоритмом действий до, во время и после записи.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('checklist')">Открыть чек-лист</button>
+        <button class="btn-outline" onclick="document.getElementById('why-anchor').scrollIntoView({behavior:'smooth'})">Почему подкасты?</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div style="position:relative;border-radius:var(--radius-lg);overflow:hidden;margin-bottom:12px;height:180px">
+        <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&q=80" alt="Студия звукозаписи" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block">
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(70,51,79,0.2),rgba(70,51,79,0.75));display:flex;align-items:flex-end;padding:16px">
+          <div style="font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;color:#fff">Подкаст — это точка контакта.<br><span style="color:var(--orange)">Используй её осознанно.</span></div>
+        </div>
+      </div>
+      <div class="hero-card-main">
+        <div class="hcm-label">Рынок подкастов в России</div>
+        <div class="hcm-stat"><div class="hcm-num">10 млн</div><div class="hcm-text">активных слушателей (РАЭК, 2023)</div></div>
+        <div class="hcm-divider"></div>
+        <div class="hcm-stat"><div class="hcm-num">+10%</div><div class="hcm-text">ежегодный прирост аудитории</div></div>
+        <div class="hcm-divider"></div>
+        <div class="hcm-stat"><div class="hcm-num">54%</div><div class="hcm-text">слушателей готовы взаимодействовать с упоминаемыми артистами (Edison Research, 2019)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="format-strip">
+    <div class="format-strip-inner">
+      <div class="fs-label">Работаем с обоими форматами</div>
+      <div class="fs-divider"></div>
+      <div class="fs-item"><div class="fs-dot audio"></div>Аудиоподкаст — фоновое потребление, парасоциальная близость</div>
+      <div class="fs-divider"></div>
+      <div class="fs-item"><div class="fs-dot video"></div>Видеоподкаст — визуальный брендинг, нарезки для Reels</div>
+      <div class="fs-divider"></div>
+      <button style="font-size:12px;color:var(--orange);background:none;border:none;cursor:pointer;font-weight:500" onclick="showPage('formats')">В чём разница для артиста? →</button>
+    </div>
+  </div>
+
+  <div class="why-section" id="why-anchor">
+    <div class="why-inner">
+      <div style="border-radius:var(--radius-lg);overflow:hidden;height:180px;margin-bottom:28px;position:relative">
+        <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=1200&q=80" alt="Подкаст студия" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.55)">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;padding:32px">
+          <div style="font-family:'Unbounded',sans-serif;font-size:20px;font-weight:700;color:#fff;max-width:500px;line-height:1.3">Почему подкасты работают там, где другие форматы не дотягиваются?</div>
+        </div>
+      </div>
+      <div class="why-header">
+        <div class="why-title-block">
+          <div class="section-label">Зачем мне подкасты?</div>
+          <h2>Три причины, подтверждённые исследованиями</h2>
+        </div>
+        <div class="why-desc">Не интуиция и не мода — конкретные механизмы, которые объясняют, почему подкасты работают там, где другие форматы не дотягиваются</div>
+      </div>
+      <div class="theory-cards">
+        <div class="theory-card"><div class="theory-num">01</div><h3>Доверие через голос</h3><p>Регулярный голосовой контакт формирует у слушателей ощущение близости с артистом — то, что невозможно создать через рекламный пост или стриминг.</p><div class="theory-source">Horton, Wohl, 1956 — парасоциальное взаимодействие</div></div>
+        <div class="theory-card"><div class="theory-num">02</div><h3>Новая аудитория без алгоритмов</h3><p>Подкаст имеет свою лояльную аудиторию. Участие в нём — это прямой выход на людей, которые могут не знать тебя совсем.</p><div class="theory-source">Berry, 2016 — кросс-аудиторный обмен</div></div>
+        <div class="theory-card"><div class="theory-num">03</div><h3>Работает спустя годы</h3><p>Архивные эпизоды продолжают набирать прослушивания. Одно появление в подкасте — это маркетинговый актив, а не разовая активация.</p><div class="theory-source">Anderson, 2006 — эффект длинного хвоста</div></div>
+      </div>
+      <div class="effects-grid">
+        <div class="effect-card"><div class="effect-icon">↔️</div><h3>Кросс-аудитория</h3><p>Часть слушателей подкаста становится твоими слушателями. Кейс Сони Сомусевой (Кис-Кис) подтвердил это напрямую.</p></div>
+        <div class="effect-card"><div class="effect-icon">🎯</div><h3>Конверсия 54%</h3><p>54% слушателей подкастов готовы взаимодействовать с упоминаемыми артистами и брендами (Edison Research, 2019).</p></div>
+        <div class="effect-card"><div class="effect-icon">🛡</div><h3>Перенос доверия</h3><p>Аудитория доверяет ведущему и переносит это доверие на гостя — то, чего не даст ни один рекламный формат.</p></div>
+        <div class="effect-card"><div class="effect-icon">📈</div><h3>Длинный хвост</h3><p>Эпизоды находят слушателей месяцами через поиск и алгоритмы платформ — без дополнительных усилий.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cases-section">
+    <div class="section-label">Реальные примеры</div>
+    <div class="section-title">Как это работает<br>на российских артистах</div>
+    <div class="section-desc">Три выпуска — три разных стратегии и три разных результата.</div>
+    <div class="cases-grid">
+      <div class="case-card">
+        <div class="case-thumb c1" style="overflow:hidden">
+          <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&q=80" alt="VSRAP Podcast" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.7)">
+          <div class="case-thumb-label">март 2025</div>
+          <div class="case-thumb-platform">YouTube</div>
+        </div>
+        <div class="case-body">
+          <div class="case-tag">VSRAP Podcast</div>
+          <h3>Бустер, Yanix, The Limba, Satyr</h3>
+          <p>Разрыв между аудиторными реакциями на гостей определяется осознанностью нарративной стратегии. Yanix — сдержанность и последовательность. The Limba — непросчитанные высказывания, негативный отклик.</p>
+          <div class="case-result">⚡ Вывод: медийный вес не компенсирует отсутствие нарративного самоконтроля</div>
+        </div>
+        <a class="case-link" href="https://youtu.be/YXoeRtd8PeU?si=98-HUcHkTnJmNA7g" target="_blank">▶ Смотреть на YouTube →</a>
+      </div>
+      <div class="case-card">
+        <div class="case-thumb c2" style="overflow:hidden">
+          <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=600&q=80" alt="Подкаст Страхи" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.65)">
+          <div class="case-thumb-label">август 2025</div>
+          <div class="case-thumb-platform">YouTube</div>
+        </div>
+        <div class="case-body">
+          <div class="case-tag">Подкаст «Страхи»</div>
+          <h3>Ваня Дмитриенко</h3>
+          <p>Стратегия открытой уязвимости: личностное раскрытие через тему страхов сформировало парасоциальное сближение. В комментариях фиксировался эффект «стал воспринимать его иначе».</p>
+          <div class="case-result">⚡ Вывод: личностное раскрытие формирует новую аудиторию эффективнее профессиональных интервью</div>
+        </div>
+        <a class="case-link" href="https://youtu.be/LsOZgvmZmlk?si=x3T-sc7a7m6QvMp3" target="_blank">▶ Смотреть на YouTube →</a>
+      </div>
+      <div class="case-card">
+        <div class="case-thumb c3" style="overflow:hidden">
+          <img src="https://images.unsplash.com/photo-1617575521317-d2974f3b56d2?w=600&q=80" alt="Правило 34 подкаст" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.6)">
+          <div class="case-thumb-label">апрель 2024</div>
+          <div class="case-thumb-platform">YouTube</div>
+        </div>
+        <div class="case-body">
+          <div class="case-tag">Подкаст «Правило 34»</div>
+          <h3>Соня Сомусева / Кис-Кис</h3>
+          <p>Часть аудитории пришла к музыке группы именно через личность артиста, раскрытую в подкасте. Фиксируется прямой кросс-аудиторный переход.</p>
+          <div class="case-result">⚡ Вывод: при грамотной стратегии подкаст работает как воронка привлечения новых слушателей</div>
+        </div>
+        <a class="case-link" href="https://youtu.be/F6OHdjY7jmY?si=ztFeCWc9Zfi8LURU" target="_blank">▶ Смотреть на YouTube →</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--accent-light);padding:40px 48px;text-align:center">
+    <div style="max-width:560px;margin:0 auto">
+      <div style="font-family:'Unbounded',sans-serif;font-size:20px;font-weight:700;color:var(--accent);margin-bottom:10px">Готов использовать подкасты системно?</div>
+      <div style="font-size:14px;color:var(--text-muted);margin-bottom:24px">Чек-лист переводит всё это в конкретные действия — до, во время и после записи</div>
+      <button class="btn-primary" onclick="showPage('checklist')">Открыть чек-лист →</button>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-formats">
+  <div class="formats-inner">
+    <div style="border-radius:var(--radius-lg);overflow:hidden;height:160px;margin-bottom:28px;position:relative">
+      <img src="https://images.unsplash.com/photo-1598550476439-6847ef35097c?w=1200&q=80" alt="Аудио и видео форматы" style="width:100%;height:100%;object-fit:cover;object-position:center 40%;filter:brightness(0.5)">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;padding:28px">
+        <div>
+          <div style="font-family:'Unbounded',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:4px">Аудио или видео?</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.75)">Это не вопрос «что лучше» — это вопрос «какую задачу ты решаешь»</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-label">Форматы подкастов</div>
+    <div class="section-title">В чём разница<br>для артиста</div>
+    <div class="section-desc" style="margin-bottom:28px">Оба формата нужны, но работают по-разному. Выбор зависит от задачи, а не от того, что сейчас популярнее.</div>
+
+    <div class="format-compare">
+      <div class="format-card fl">
+        <div style="height:120px;border-radius:var(--radius);overflow:hidden;margin-bottom:14px">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="Аудиоподкаст наушники" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="format-badge audio">🎧 Аудиоподкаст</div>
+        <h3>Фоновое потребление и доверие через голос</h3>
+        <p>Слушатель включает тебя во время пробежки, поездки, домашних дел. Голос без картинки создаёт ощущение личного разговора — эффект парасоциального взаимодействия, который Horton и Wohl описали ещё в 1956 году.</p>
+        <ul class="format-list">
+          <li>Интервью, разговорный формат</li>
+          <li>Нарративные (документальные) выпуски</li>
+          <li>Авторские монологи</li>
+        </ul>
+      </div>
+      <div class="format-card fr">
+        <div style="height:120px;border-radius:var(--radius);overflow:hidden;margin-bottom:14px">
+          <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&q=80" alt="Видеоподкаст камера" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="format-badge video">📹 Видеоподкаст</div>
+        <h3>Визуальный брендинг и шортс-дистрибуция</h3>
+        <p>Каждый эпизод становится источником контента для Reels и Shorts. Мимика, стиль одежды, студия — всё работает на твой визуальный образ. Визуальная несогласованность снижает воспринимаемый профессионализм (Cheţan, Iancu, 2023).</p>
+        <ul class="format-list">
+          <li>YouTube, Яндекс Видео</li>
+          <li>Нарезки для Reels и Shorts (30–60 сек)</li>
+          <li>Студия как часть визуального бренда</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="format-diff">
+      <div class="format-diff-col">
+        <h4>🎧 Аудио — когда выбирать</h4>
+        <ul>
+          <li>Нужно выстроить доверительный образ через личную историю</li>
+          <li>ЦА слушает подкасты на Яндекс Музыке или Apple Podcasts</li>
+          <li>Нет ресурсов на постпродакшн видео</li>
+        </ul>
+      </div>
+      <div class="format-diff-col">
+        <h4>📹 Видео — когда выбирать</h4>
+        <ul>
+          <li>Хочешь получить нарезки для соцсетей из одной съёмки</li>
+          <li>Важно транслировать визуальный стиль и образ</li>
+          <li>Программа выходит на YouTube с активной аудиторией</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;background:var(--accent-light);border-radius:var(--radius);padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <div><div style="font-family:'Unbounded',sans-serif;font-size:13px;font-weight:600;color:var(--accent);margin-bottom:3px">Чек-лист учитывает оба формата</div><div style="font-size:13px;color:var(--text-muted)">Пункты для видеоподкаста помечены значком 📹</div></div>
+      <button class="btn-primary" onclick="showPage('checklist')">Открыть чек-лист →</button>
+    </div>
+  </div>
+
+  <div style="background:var(--surface);border-top:1px solid var(--border)">
+    <div class="what-section">
+      <div style="display:grid;grid-template-columns:1fr 260px;gap:32px;align-items:center;margin-bottom:28px">
+        <div>
+          <div class="section-label">Базовый ликбез</div>
+          <div class="section-title">Что такое подкаст<br>и где его слушают</div>
+        </div>
+        <div style="border-radius:var(--radius-lg);overflow:hidden;height:130px">
+          <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=600&q=80" alt="Студия" style="width:100%;height:100%;object-fit:cover;object-position:center 30%">
+        </div>
+      </div>
+      <div class="what-grid">
+        <div class="what-card">
+          <div class="what-num">01</div>
+          <h3>Что это такое</h3>
+          <p>Подкаст — это аудио- или видеопрограмма, выходящая регулярными выпусками. Ты слушаешь его, когда удобно — в наушниках, в машине, на пробежке. Не привязан ко времени эфира, как радио.</p>
+        </div>
+        <div class="what-card">
+          <div class="what-num">02</div>
+          <h3>Кто ведёт подкасты</h3>
+          <p>Любой человек или медиа: журналисты, блогеры, эксперты, артисты. Форматы разные — интервью, дискуссии, монологи. Тебя могут позвать как гостя — и это отдельная история от ведения собственного шоу.</p>
+        </div>
+        <div class="what-card">
+          <div class="what-num">03</div>
+          <h3>Зачем артисту это знать</h3>
+          <p>Участие в подкасте как гость — один из способов выйти на новую аудиторию без платной рекламы и без алгоритмов. Слушатели уже лояльны к ведущему — и часть этого доверия переходит на тебя.</p>
+        </div>
+      </div>
+      <div style="margin-top:20px">
+        <div style="margin-bottom:12px;font-size:13px;font-weight:500;color:var(--text)">Где слушают подкасты в России:</div>
+        <div class="platforms-row">
+          <div class="platform-pill"><span>🎵</span>Яндекс Музыка</div>
+          <div class="platform-pill"><span>🍎</span>Apple Podcasts</div>
+          <div class="platform-pill"><span>▶️</span>YouTube</div>
+          <div class="platform-pill"><span>📻</span>mave.digital</div>
+          <div class="platform-pill"><span>🎙</span>Podcasts.ru</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-checklist">
+  <div class="cl-section">
+    <div class="cl-inner">
+      <div class="section-label">READ-DO чек-лист</div>
+      <div class="section-title">Пошаговый инструмент<br>для работы с подкастами</div>
+      <div class="section-desc">Читай пункт — сразу выполняй. Три этапа соответствуют реальной временной последовательности работы артиста с подкастом</div>
+
+      <div class="cl-nav">
+        <button class="cl-tab active" onclick="switchCl('prep')">Подготовка</button>
+        <button class="cl-tab" onclick="switchCl('during')">Участие</button>
+        <button class="cl-tab" onclick="switchCl('post')">Постпродакшн</button>
+      </div>
+      <div class="cl-progress-wrap">
+        <div class="cl-progress"><div class="cl-progress-fill" id="cl-fill"></div></div>
+        <div class="cl-progress-text" id="cl-progress-text">0 / 0 выполнено</div>
+      </div>
+
+      <div class="cl-tab-content active" id="cl-prep">
+        <div class="cl-group">
+          <div class="cl-group-title">Выбор подкаста</div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Проверить тематическое пересечение с целевой аудиторией артиста — тема подкаста не обязана быть музыкальной</div><span class="cl-badge must">обязательно</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Убедиться, что формат предполагает диалог или интервью, а не монолог ведущего</div><span class="cl-badge must">обязательно</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Оценить аудиторную совместимость: если ЦА артиста на Яндекс Музыке — выбирать программы, доступные именно там</div><span class="cl-badge must">обязательно</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Проверить регулярность выпусков: не менее 1 раза в месяц как индикатор активности программы</div><span class="cl-badge rec">рекомендуется</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Изучить активность комментариев под предыдущими эпизодами</div><span class="cl-badge rec">рекомендуется</span></div>
+        </div>
+        <div class="cl-group">
+          <div class="cl-group-title">Нарративная стратегия</div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Определить 2–3 ключевых нарратива, которые артист хочет донести в этом эпизоде</div><span class="cl-badge must">обязательно</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Подготовить конкретную личную историю, иллюстрирующую каждый нарратив — общие рассуждения менее эффективны</div><span class="cl-badge must">обязательно</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Определить темы, которые артист не готов обсуждать публично, и проговорить их с командой подкаста заранее</div><span class="cl-badge rec">рекомендуется</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Согласовать ключевые тезисы с менеджером или командой</div><span class="cl-badge opt">опционально</span></div>
+        </div>
+        <div class="cl-group">
+          <div class="cl-group-title">Визуальная подготовка (только для видеоподкаста 📹)</div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Согласовать образ и стиль одежды с общим визуальным позиционированием артиста в других каналах</div><span class="cl-badge must">обязательно</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Уточнить сценографию студии и цветовую гамму у команды подкаста</div><span class="cl-badge rec">рекомендуется</span></div>
+        </div>
+      </div>
+
+      <div class="cl-tab-content" id="cl-during">
+        <div class="cl-group">
+          <div class="cl-group-title">Перед записью</div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Выполнить речевую разминку за 5–10 минут до начала записи</div><span class="cl-badge must">обязательно</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Проверить звук и освещение вместе с командой подкаста</div><span class="cl-badge must">обязательно</span></div>
+        </div>
+        <div class="cl-group">
+          <div class="cl-group-title">Во время записи</div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Применять сторителлинг: конкретные истории вместо абстрактных тезисов — аудитория запоминает детали</div><span class="cl-badge must">обязательно</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Сохранять сдержанную и искреннюю манеру общения — аудитория выше оценивает её, чем демонстративное самоутверждение</div><span class="cl-badge must">обязательно</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Следить за невербальной коммуникацией в кадре: открытая поза, зрительный контакт с ведущим (для видео 📹)</div><span class="cl-badge rec">рекомендуется</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Упомянуть релевантный релиз органично, в контексте беседы — без рекламного тона</div><span class="cl-badge rec">рекомендуется</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">В аудиоподкасте 🎧: управлять темпом речи, паузами и интонационными акцентами</div><span class="cl-badge rec">рекомендуется</span></div>
+        </div>
+      </div>
+
+      <div class="cl-tab-content" id="cl-post">
+        <div class="cl-group">
+          <div class="cl-group-title">Дистрибуция</div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Опубликовать ссылку на эпизод во всех соцсетях артиста в день выхода с личным комментарием</div><span class="cl-badge must">обязательно</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Попросить команду подкаста отметить аккаунт артиста в своих публикациях</div><span class="cl-badge must">обязательно</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Создать нарезки для Reels/Shorts из видеоподкаста 📹 (30–60 сек, самый эмоциональный момент)</div><span class="cl-badge rec">рекомендуется</span></div>
+        </div>
+        <div class="cl-group">
+          <div class="cl-group-title">Аналитика и коммуникация</div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Сравнить динамику подписчиков и прослушиваний до и после выхода эпизода</div><span class="cl-badge rec">рекомендуется</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Ответить на комментарии аудитории — постпродакшн-активность определяет, реализуется ли эффект длинного хвоста</div><span class="cl-badge rec">рекомендуется</span></div>
+          <div class="cl-item" onclick="toggleCl(this)"><div class="cl-check"><svg width="10" height="8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cl-text">Зафиксировать аудиторные реакции и использовать при подготовке к следующему участию</div><span class="cl-badge opt">опционально</span></div>
+        </div>
+      </div>
+
+      <div class="pdf-banner">
+        <div><p>Скачать чек-лист в PDF</p><span>Версия для печати и офлайн-использования</span></div>
+        <button class="btn-orange" id="pdf-btn" onclick="downloadPDF()">↓ Скачать PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- СТРАНИЦА: МАТЕРИАЛЫ -->
+<div class="page" id="page-materials">
+  <div class="mat-section">
+    <div style="border-radius:var(--radius-lg);overflow:hidden;height:160px;margin-bottom:28px;position:relative">
+      <img src="https://images.unsplash.com/photo-1453738773917-9c3eff1db985?w=1200&q=80" alt="Материалы для подкаста" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.5)">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;padding:28px">
+        <div>
+          <div style="font-family:'Unbounded',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:4px">Практические инструменты</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.75)">Речевая разминка, визуальное позиционирование, шаблоны писем и нарративные стратегии</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-label">Практические инструменты</div>
+    <div class="section-title">Дополнительные<br>материалы</div>
+    <div class="section-desc">Инструменты для подготовки к записи, разработанные на основе анализа нарративных и визуальных стратегий подкастинга</div>
+    <div class="mat-grid">
+      <div class="mat-card"><div class="mat-icon">🎙</div><h3>Речевая разминка</h3><p>Комплекс упражнений для разогрева мышц языка, губ и голоса. Выполнить за 5–10 минут до записи.</p><button class="mat-link" onclick="openModal('warmup')">→ Открыть упражнения</button></div>
+      <div class="mat-card"><div class="mat-icon">📷</div><h3>Визуальное позиционирование</h3><p>Советы по образу, сценографии и работе с камерой в видеоподкасте. Как транслировать визуальный бренд артиста в каждом кадре.</p><button class="mat-link" onclick="openModal('visual')">→ Читать советы</button></div>
+      <div class="mat-card"><div class="mat-icon">✉️</div><h3>Шаблоны коммуникации</h3><p>Готовые шаблоны писем для команды подкаста: первый контакт, уточнение формата, согласование даты.</p><button class="mat-link" onclick="openModal('templates')">→ Открыть шаблоны</button></div>
+      <div class="mat-card"><div class="mat-icon">📖</div><h3>Нарративные стратегии</h3><p>Три типа нарративов для разговорного подкаста. Разбор на примерах российских кейсов.</p><button class="mat-link" onclick="openModal('narrative')">→ Читать гайд</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- СТРАНИЦА: НАЙТИ ПОДКАСТ -->
+<div class="page" id="page-search">
+  <div class="search-section">
+    <div class="search-inner">
+      <div style="border-radius:var(--radius-lg);overflow:hidden;height:160px;margin-bottom:28px;position:relative">
+        <img src="https://images.unsplash.com/photo-1614680376739-414d95ff43df?w=1200&q=80" alt="Поиск подкаста" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.5)">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;padding:28px">
+          <div>
+            <div style="font-family:'Unbounded',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:4px">Найди свою площадку</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.75)">Алгоритм работает для аудио- и видеоподкастов — выбери нужный формат ниже</div>
+          </div>
+        </div>
+      </div>
+      <div class="section-label">Алгоритм поиска</div>
+      <div class="section-title">Как найти подходящий<br>подкаст — шаг за шагом</div>
+      <div class="section-desc">Не каталог, который устаревает, а воспроизводимый алгоритм — он работает независимо от того, какие платформы актуальны сейчас</div>
+      <!-- Переключатель аудио/видео -->
+      <div style="display:flex;gap:8px;margin-bottom:28px;background:var(--bg);padding:4px;border-radius:10px;width:fit-content">
+        <button id="search-tab-audio" onclick="switchSearch('audio')" style="padding:8px 20px;font-size:13px;border-radius:7px;cursor:pointer;border:none;background:var(--accent);color:#fff;font-weight:500;font-family:'Inter',sans-serif;transition:all .15s">🎧 Аудиоподкаст</button>
+        <button id="search-tab-video" onclick="switchSearch('video')" style="padding:8px 20px;font-size:13px;border-radius:7px;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-weight:500;font-family:'Inter',sans-serif;transition:all .15s">📹 Видеоподкаст</button>
+      </div>
+
+      <!-- АУДИО -->
+      <div id="search-audio" class="algo-steps">
+        <div class="algo-step"><div class="algo-num">1</div><div class="algo-content">
+          <h3>Определи критерии отбора</h3>
+          <p>Тематика подкаста должна пересекаться с интересами твоей аудитории — не обязательно быть о музыке. Важен формат (диалог или интервью с гостем) и регулярность выпусков как признак активной программы.</p>
+          <div class="algo-tags"><span class="algo-tag">тематика совпадает с ЦА артиста</span><span class="algo-tag">формат: диалог или интервью</span><span class="algo-tag">регулярность ≥ 1 раза в месяц</span></div>
+          <div class="algo-tip">💡 Подкаст о психологии, путешествиях или спорте может привлечь твоих слушателей так же хорошо, как тематическое музыкальное шоу — а иногда и лучше.</div>
+        </div></div>
+        <div class="algo-step"><div class="algo-num">2</div><div class="algo-content">
+          <h3>Ищи на аудиоплатформах</h3>
+          <p>После 2022 года 60% аудитории подкастов в России сосредоточено на Яндекс Музыке и Apple Podcasts (РАЭК, 2023). Начинай поиск там — именно здесь живёт активная слушательская аудитория аудиоподкастов.</p>
+          <div class="algo-tags"><span class="algo-tag">Яндекс Музыка → Подкасты → Чарты</span><span class="algo-tag">Apple Podcasts → Топ-чарты</span><span class="algo-tag">Podcasts.ru — каталог с фильтрами</span><span class="algo-tag">mave.digital — каталог авторов</span></div>
+          <div class="algo-tip">💡 В Яндекс Музыке зайди в раздел «Подкасты» → «Чарты» → выбери нужную категорию. Смотри не только топ — листай ниже, там меньше конкуренция за место гостя.</div>
+        </div></div>
+        <div class="algo-step"><div class="algo-num">3</div><div class="algo-content">
+          <h3>Оцени по открытым данным</h3>
+          <p>Перед тем как писать — убедись, что программа живая. Три вещи, на которые нужно смотреть.</p>
+          <div class="algo-tags"><span class="algo-tag">дата последнего выпуска</span><span class="algo-tag">комментарии под эпизодами</span><span class="algo-tag">активность в соцсетях программы</span></div>
+          <div class="algo-tip">💡 Если последний выпуск вышел более 3–4 месяцев назад — программа, скорее всего, на паузе. Лучше направить усилия на активный проект.</div>
+        </div></div>
+        <div class="algo-step"><div class="algo-num">4</div><div class="algo-content">
+          <h3>Найди контакт и напиши</h3>
+          <p>Контакты команды — в описании подкаста на платформе, на сайте или в шапке профиля в соцсетях. На Podcasts.ru есть раздел с контактами авторов.</p>
+          <div class="algo-tags"><span class="algo-tag">описание на платформе</span><span class="algo-tag">Podcasts.ru — контакты авторов</span><span class="algo-tag">соцсети программы</span></div>
+          <div class="algo-tip">💡 Используй шаблон первого письма из раздела «Материалы» — он составлен так, чтобы команда подкаста захотела ответить.</div>
+        </div></div>
+      </div>
+
+      <!-- ВИДЕО -->
+      <div id="search-video" class="algo-steps" style="display:none">
+        <div class="algo-step"><div class="algo-num">1</div><div class="algo-content">
+          <h3>Определи критерии отбора</h3>
+          <p>Для видеоподкаста важно не только тематическое пересечение с твоей аудиторией, но и визуальный формат программы: как выглядит студия, есть ли у ведущего опыт съёмки с гостями, какой стиль у программы. Визуальная несогласованность снижает воспринимаемый профессионализм (Cheţan, Iancu, 2023).</p>
+          <div class="algo-tags"><span class="algo-tag">тематика совпадает с ЦА артиста</span><span class="algo-tag">формат: интервью или диалог с гостем</span><span class="algo-tag">студия и визуальный стиль программы</span><span class="algo-tag">регулярность ≥ 1 раза в месяц</span></div>
+          <div class="algo-tip">💡 Посмотри 2–3 выпуска программы целиком — обрати внимание на освещение, монтаж, как смотрятся гости в кадре. Это поможет понять, как будешь выглядеть ты.</div>
+        </div></div>
+        <div class="algo-step"><div class="algo-num">2</div><div class="algo-content">
+          <h3>Ищи на видеоплатформах</h3>
+          <p>Видеоподкасты живут прежде всего на YouTube — это основная площадка для видеоформата в России. Дополнительно смотри Яндекс Видео и ВКонтакте: часть программ публикует выпуски там параллельно. Telegram-каналы анонсируют новые выпуски и часто помогают выйти на команду напрямую.</p>
+          <div class="algo-tags"><span class="algo-tag">YouTube → поиск по теме</span><span class="algo-tag">Яндекс Видео → подкасты</span><span class="algo-tag">ВКонтакте — видео раздел</span><span class="algo-tag">Telegram-каналы авторов</span></div>
+          <div class="algo-tip">💡 В YouTube ищи по запросам «подкаст интервью [тема]» или «шоу [тема] гость». Смотри на просмотры последних выпусков — они показывают реальную активность аудитории.</div>
+        </div></div>
+        <div class="algo-step"><div class="algo-num">3</div><div class="algo-content">
+          <h3>Оцени по открытым данным</h3>
+          <p>Для видеоподкаста важно оценить не только активность, но и качество производства: хорошее освещение, звук и монтаж работают на твой визуальный образ так же, как и на образ программы.</p>
+          <div class="algo-tags"><span class="algo-tag">просмотры и дата последнего выпуска</span><span class="algo-tag">качество видео и звука</span><span class="algo-tag">комментарии под выпусками</span><span class="algo-tag">активность в Telegram-канале программы</span></div>
+          <div class="algo-tip">💡 Обрати внимание: программы с хорошими нарезками для Reels/Shorts охватывают аудиторию шире, чем те, кто публикует только полный выпуск.</div>
+        </div></div>
+        <div class="algo-step"><div class="algo-num">4</div><div class="algo-content">
+          <h3>Найди контакт и напиши</h3>
+          <p>Для YouTube-подкастов контакты обычно в описании канала («О канале») или в описании последнего выпуска. Многие команды ведут Telegram-канал — там проще написать напрямую.</p>
+          <div class="algo-tags"><span class="algo-tag">YouTube → О канале → Контакты</span><span class="algo-tag">Telegram-канал программы</span><span class="algo-tag">соцсети ведущего</span></div>
+          <div class="algo-tip">💡 В письме укажи, что знаком с форматом программы и видел выпуски с гостями — это покажет, что ты готовился, а не рассылаешь шаблон по всем подряд.</div>
+        </div></div>
+      </div>
+      <div style="background:var(--accent-light);border-radius:var(--radius);padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:28px">
+        <div><div style="font-family:'Unbounded',sans-serif;font-size:13px;font-weight:500;color:var(--accent);margin-bottom:4px">Нашёл подкаст? Теперь подготовься правильно</div><div style="font-size:13px;color:var(--text-muted)">Шаблон первого письма и советы по подготовке — в разделе «Материалы»</div></div>
+        <button class="btn-primary" onclick="showPage('materials')">Перейти к материалам →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-logo" onclick="showPage('home')">● подкасты для артистов</div>
+    <p>Информационно-сервисный ресурс для музыкальных артистов и арт-менеджеров</p>
+    <p style="margin-top:3px">Бесплатный открытый доступ</p>
+  </div>
+  <div class="footer-contacts">
+    <h4>Авторы проекта</h4>
+    <p>Гонова Ирина — <a href="mailto:iigonova@edu.hse.ru">iigonova@edu.hse.ru</a></p>
+    <p>Сагдиева Аделя — <a href="mailto:arsagdieva@edu.hse.ru">arsagdieva@edu.hse.ru</a></p>
+    <p>Ракова Полина — <a href="mailto:pmrakova@edu.hse.ru">pmrakova@edu.hse.ru</a></p>
+  </div>
+</footer>
+
+<!-- МОДАЛЬНЫЕ ОКНА -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- КОНФЕТТИ -->
+<div class="confetti-container" id="confetti-container"></div>
+
+<script>
+const MODALS={
+  warmup:{title:'🎙 Речевая разминка',sub:'Выполнять за 5–10 минут до записи. Ориентир: лёгкое жжение (~4 из 10), 30–40 секунд на каждое упражнение.',html:`<div class="modal-highlight">Выполняйте медленно, осмысленно, без резких движений. Задача — разогреть мышцы, как перед тренировкой.</div><div class="modal-section"><h3>Упражнения для языка</h3><ul><li><strong>Вращение языком вокруг зубов</strong> — по внешней и внутренней поверхности зубов в обе стороны.</li><li><strong>«Укол» в щёки</strong> — рот закрыт, поочерёдно упираемся кончиком языка в щёки изнутри.</li><li><strong>«Иголочка»</strong> — открыть рот, выдвинуть узкий напряжённый язык вперёд. Удерживать на счёт до 5.</li><li><strong>«Лошадка»</strong> — широко улыбаемся и цокаем языком.</li><li><strong>«Трубочка»</strong> — вытянуть язык трубочкой, удержать 5 секунд.</li></ul></div><div class="modal-section"><h3>Упражнения для губ</h3><ul><li><strong>«Трубочка» губами</strong> — вытянуть губы вперёд пятачком, удержать 5 секунд. Рисовать круг этим пятачком.</li><li><strong>«Улыбка»</strong> — верхней губой (5 сек), нижней (5 сек), полная улыбка (5 сек). Расслабить.</li></ul></div><div class="modal-section"><h3>Расслабление</h3><ul><li><strong>«Зевающий лев»</strong> — запрокинуть голову, открыть рот максимально широко, громко зевнуть с изменением тональности.</li><li><strong>«Фырканье»</strong> — фыркать губами на выдохе.</li></ul></div><div class="modal-section"><h3>Скороговорки</h3><ul><li>От топота копыт пыль по полю летит.</li><li>Бык тупогуб, тупогубенький бычок.</li><li>Хохлатые хохотушки хохотом хохотали.</li><li>Везёт Сенька Саньку с Сонькой на санках.</li><li>Волховал волхв в хлеву с волхвами.</li></ul></div>`},
+  visual:{title:'📷 Визуальное позиционирование',sub:'Для видеоподкаста — каждый элемент несёт коммуникативную нагрузку',html:`<div class="modal-section"><h3>Образ и одежда</h3><ul><li>Одежда должна соответствовать визуальному позиционированию в других каналах — Instagram, обложки релизов.</li><li>Избегайте мелкой клетки и узких полос — они мерцают на видео.</li><li>Яркие однотонные цвета работают лучше сложных принтов.</li><li>Согласуйте образ заранее — уточните цветовую гамму студии.</li></ul></div><div class="modal-section"><h3>Поза и невербалика</h3><ul><li>Открытая поза: руки видны, корпус повёрнут к ведущему.</li><li>Зрительный контакт с ведущим, а не с камерой.</li><li>Активно слушайте: кивайте, реагируйте на слова ведущего.</li><li>Не скрещивайте руки — это считывается как закрытость.</li></ul></div><div class="modal-section"><h3>Студия и фон</h3><ul><li>Уточните: цвет стен, освещение, фирменные элементы студии.</li><li>Хорошее освещение важнее камеры: свет спереди, не сзади.</li></ul></div><div class="modal-section"><h3>После съёмки</h3><ul><li>Попросите прислать фото с записи для соцсетей.</li><li>Нарезки для Reels: 30–60 секунд, самый эмоциональный момент.</li></ul></div>`},
+  templates:{title:'✉️ Шаблоны коммуникации',sub:'Готовые письма для работы с командой подкаста',html:`<div class="modal-section"><h3>Первый контакт</h3><div class="modal-template">Добрый день!<br><br>Меня зовут [Имя], я музыкальный артист. Слежу за вашим подкастом [Название] и ценю, как вы работаете с темой [тема программы].<br><br>Мне кажется, мой опыт в [краткое описание] мог бы быть интересен вашей аудитории. Готов рассказать о [2–3 конкретные темы].<br><br>Было бы здорово обсудить возможность участия.<br><br>С уважением, [Имя]<br>[Ссылка на стриминг / соцсети]</div></div><div class="modal-section"><h3>Уточнение формата</h3><div class="modal-template">Добрый день!<br><br>Спасибо за приглашение. Чтобы подготовиться хорошо, уточните, пожалуйста:<br><br>— Ориентировочная продолжительность выпуска?<br>— Есть ли согласованный список тем или формат свободный?<br>— Это аудио- или видеозапись?<br>— Какие темы вы точно хотите затронуть?<br><br>Жду деталей. Спасибо!</div></div><div class="modal-section"><h3>Согласование даты</h3><div class="modal-template">Добрый день!<br><br>Со своей стороны могу в следующие даты: [3–4 варианта].<br><br>Уточните адрес студии / ссылку для онлайн-записи и примерное время начала.<br><br>Нужно ли что-то подготовить технически с моей стороны?<br><br>Спасибо!</div></div>`},
+  narrative:{title:'📖 Нарративные стратегии',sub:'Три типа нарративов — и разбор реальных российских кейсов',html:`<div class="modal-section"><h3>Три типа нарративов</h3><ul><li><strong>Личная история</strong> — конкретный случай из жизни. Самый эффективный тип: аудитория запоминает детали, а не обобщения.</li><li><strong>Профессиональный опыт</strong> — знание о процессе создания музыки, работе с лейблом, гастролях.</li><li><strong>Ценностный месседж</strong> — позиция артиста по важной для него теме. Требует осторожности: непродуманная позиция несёт репутационный риск.</li></ul></div><div class="modal-section"><h3>Кейс 1: VSRAP Podcast (март 2025)</h3><p>Yanix — сдержанная последовательность, высокая оценка аудитории. The Limba — непросчитанные высказывания, негативный отклик. Вывод: медийный вес не компенсирует отсутствие нарративного самоконтроля.</p></div><div class="modal-section"><h3>Кейс 2: «Страхи» — Ваня Дмитриенко (август 2025)</h3><p>Личностное раскрытие через тему страхов сформировало парасоциальное сближение. В комментариях фиксировался эффект «стал воспринимать его иначе» (Horton, Wohl, 1956). Вывод: личностное раскрытие формирует новую аудиторию эффективнее профессиональных интервью.</p></div><div class="modal-section"><h3>Кейс 3: «Правило 34» — Соня Сомусева / Кис-Кис (апрель 2024)</h3><p>Часть аудитории пришла к музыке группы именно через личность артиста, раскрытую в подкасте. Вывод: при грамотной стратегии подкаст работает как воронка привлечения новых слушателей.</p></div>`}
+};
+
+function openModal(id){const m=MODALS[id];document.getElementById('modal-content').innerHTML=`<h2>${m.title}</h2><p class="modal-sub">${m.sub}</p>${m.html}`;document.getElementById('modal-overlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open');document.body.style.overflow=''}
+function closeModalOutside(e){if(e.target===document.getElementById('modal-overlay'))closeModal()}
+function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('open')}
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const map={home:0,formats:1,checklist:2,materials:3,search:4};
+  if(map[id]!==undefined) document.querySelectorAll('.nav-link')[map[id]].classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function toggleCl(el){
+  el.classList.toggle('done');
+  updateProgress();
+  checkConfetti();
+}
+function switchCl(tab){
+  document.querySelectorAll('.cl-tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.cl-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('cl-'+tab).classList.add('active');
+  document.querySelectorAll('.cl-tab')[{prep:0,during:1,post:2}[tab]].classList.add('active');
+  updateProgress();
+}
+function updateProgress(){
+  const all=document.querySelectorAll('#page-checklist .cl-item').length;
+  const done=document.querySelectorAll('#page-checklist .cl-item.done').length;
+  document.getElementById('cl-fill').style.width=Math.round(done/all*100)+'%';
+  document.getElementById('cl-progress-text').textContent=`${done} / ${all} выполнено`;
+}
+
+// КОНФЕТТИ — срабатывает когда все обязательные пункты текущей вкладки выполнены
+function checkConfetti(){
+  const activeTab=document.querySelector('.cl-tab-content.active');
+  if(!activeTab) return;
+  const mustItems=activeTab.querySelectorAll('.cl-item .cl-badge.must');
+  if(mustItems.length===0) return;
+  const allMustDone=[...mustItems].every(b=>b.closest('.cl-item').classList.contains('done'));
+  if(allMustDone) launchConfetti();
+}
+
+function launchConfetti(){
+  const container=document.getElementById('confetti-container');
+  const colors=['#F2921D','#46334F','#6B4F7A','#F2C230','#AFA9EC','#5DCAA5'];
+  const shapes=['●','★','■','▲','♦'];
+  container.innerHTML='';
+  for(let i=0;i<60;i++){
+    const el=document.createElement('div');
+    el.className='confetti-piece';
+    el.textContent=shapes[Math.floor(Math.random()*shapes.length)];
+    el.style.cssText=`
+      left:${Math.random()*100}%;
+      color:${colors[Math.floor(Math.random()*colors.length)]};
+      font-size:${10+Math.random()*14}px;
+      animation-delay:${Math.random()*0.8}s;
+      animation-duration:${2+Math.random()*2}s;
+    `;
+    container.appendChild(el);
+  }
+  setTimeout(()=>container.innerHTML='',4000);
+}
+
+function switchSearch(tab){
+  document.getElementById('search-audio').style.display = tab==='audio' ? 'flex' : 'none';
+  document.getElementById('search-video').style.display = tab==='video' ? 'flex' : 'none';
+  document.getElementById('search-tab-audio').style.background = tab==='audio' ? 'var(--accent)' : 'transparent';
+  document.getElementById('search-tab-audio').style.color = tab==='audio' ? '#fff' : 'var(--text-muted)';
+  document.getElementById('search-tab-video').style.background = tab==='video' ? 'var(--orange)' : 'transparent';
+  document.getElementById('search-tab-video').style.color = tab==='video' ? '#fff' : 'var(--text-muted)';
+}
+
+function downloadPDF(){
+  const html=`<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><style>body{font-family:Georgia,serif;max-width:700px;margin:40px auto;padding:0 32px;color:#1A1A1A}h1{font-family:Arial,sans-serif;font-size:22px;color:#46334F;margin-bottom:4px}.subtitle{font-size:13px;color:#888;margin-bottom:32px}h2{font-family:Arial,sans-serif;font-size:12px;font-weight:bold;color:#46334F;text-transform:uppercase;letter-spacing:.07em;margin:28px 0 12px;border-bottom:2px solid #46334F;padding-bottom:6px}h3{font-family:Arial,sans-serif;font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.05em;margin:16px 0 6px}.item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid #F5F5F5}.box{width:16px;height:16px;min-width:16px;border:1.5px solid #9B8BAA;border-radius:4px;margin-top:2px}.text{font-size:13px;line-height:1.5;flex:1}.badge{font-size:9px;font-weight:bold;padding:2px 7px;border-radius:10px;flex-shrink:0;margin-top:3px}.must{background:#46334F;color:#fff}.rec{background:#EDE8F2;color:#46334F}.opt{background:#F5F5F5;color:#999}.footer{margin-top:40px;font-size:11px;color:#BBB;border-top:1px solid #EEE;padding-top:14px}</style></head><body>
+<h1>Чек-лист: подкасты для музыкальных артистов</h1><div class="subtitle">Практический инструмент READ-DO · 2026</div>
+<h2>Этап 1: Подготовка</h2>
+<h3>Выбор подкаста</h3>
+<div class="item"><div class="box"></div><div class="text">Проверить тематическое пересечение с целевой аудиторией артиста</div><span class="badge must">ОБЯЗАТЕЛЬНО</span></div>
+<div class="item"><div class="box"></div><div class="text">Убедиться, что формат предполагает диалог или интервью</div><span class="badge must">ОБЯЗАТЕЛЬНО</span></div>
+<div class="item"><div class="box"></div><div class="text">Оценить аудиторную совместимость с целевой платформой артиста</div><span class="badge must">ОБЯЗАТЕЛЬНО</span></div>
+<div class="item"><div class="box"></div><div class="text">Проверить регулярность выпусков (не менее 1 раза в месяц)</div><span class="badge rec">РЕКОМЕНДУЕТСЯ</span></div>
+<div class="item"><div class="box"></div><div class="text">Изучить активность комментариев под предыдущими эпизодами</div><span class="badge rec">РЕКОМЕНДУЕТСЯ</span></div>
+<h3>Нарративная стратегия</h3>
+<div class="item"><div class="box"></div><div class="text">Определить 2–3 ключевых нарратива для этого эпизода</div><span class="badge must">ОБЯЗАТЕЛЬНО</span></div>
+<div class="item"><div class="box"></div><div class="text">Подготовить конкретную личную историю для каждого нарратива</div><span class="badge must">ОБЯЗАТЕЛЬНО</span></div>
+<div class="item"><div class="box"></div><div class="text">Определить темы, которые артист не готов обсуждать публично</div><span class="badge rec">РЕКОМЕНДУЕТСЯ</span></div>
+<div class="item"><div class="box"></div><div class="text">Согласовать ключевые тезисы с менеджером или командой</div><span class="badge opt">ОПЦИОНАЛЬНО</span></div>
+<h3>Визуальная подготовка (для видеоподкаста)</h3>
+<div class="item"><div class="box"></div><div class="text">Согласовать образ и стиль одежды с визуальным позиционированием артиста</div><span class="badge must">ОБЯЗАТЕЛЬНО</span></div>
+<div class="item"><div class="box"></div><div class="text">Уточнить сценографию студии и цветовую гамму у команды подкаста</div><span class="badge rec">РЕКОМЕНДУЕТСЯ</span></div>
+<h2>Этап 2: Участие</h2>
+<h3>Перед записью</h3>
+<div class="item"><div class="box"></div><div class="text">Выполнить речевую разминку за 5–10 минут до начала записи</div><span class="badge must">ОБЯЗАТЕЛЬНО</span></div>
+<div class="item"><div class="box"></div><div class="text">Проверить звук и освещение вместе с командой подкаста</div><span class="badge must">ОБЯЗАТЕЛЬНО</span></div>
+<h3>Во время записи</h3>
+<div class="item"><div class="box"></div><div class="text">Применять сторителлинг: конкретные истории вместо абстрактных тезисов</div><span class="badge must">ОБЯЗАТЕЛЬНО</span></div>
+<div class="item"><div class="box"></div><div class="text">Сохранять сдержанную и искреннюю манеру общения</div><span class="badge must">ОБЯЗАТЕЛЬНО</span></div>
+<div class="item"><div class="box"></div><div class="text">Следить за невербальной коммуникацией в кадре (для видео)</div><span class="badge rec">РЕКОМЕНДУЕТСЯ</span></div>
+<div class="item"><div class="box"></div><div class="text">Упомянуть релевантный релиз органично, в контексте беседы</div><span class="badge rec">РЕКОМЕНДУЕТСЯ</span></div>
+<div class="item"><div class="box"></div><div class="text">В аудиоподкасте: управлять темпом речи, паузами и интонационными акцентами</div><span class="badge rec">РЕКОМЕНДУЕТСЯ</span></div>
+<h2>Этап 3: Постпродакшн</h2>
+<h3>Дистрибуция</h3>
+<div class="item"><div class="box"></div><div class="text">Опубликовать ссылку на эпизод во всех соцсетях в день выхода</div><span class="badge must">ОБЯЗАТЕЛЬНО</span></div>
+<div class="item"><div class="box"></div><div class="text">Попросить команду подкаста отметить аккаунт артиста в публикациях</div><span class="badge must">ОБЯЗАТЕЛЬНО</span></div>
+<div class="item"><div class="box"></div><div class="text">Создать нарезки для Reels/Shorts из видеоподкаста</div><span class="badge rec">РЕКОМЕНДУЕТСЯ</span></div>
+<h3>Аналитика и коммуникация</h3>
+<div class="item"><div class="box"></div><div class="text">Сравнить динамику подписчиков до и после выхода эпизода</div><span class="badge rec">РЕКОМЕНДУЕТСЯ</span></div>
+<div class="item"><div class="box"></div><div class="text">Ответить на комментарии аудитории под эпизодом</div><span class="badge rec">РЕКОМЕНДУЕТСЯ</span></div>
+<div class="item"><div class="box"></div><div class="text">Зафиксировать аудиторные реакции для подготовки к следующему участию</div><span class="badge opt">ОПЦИОНАЛЬНО</span></div>
+<div class="footer">Гонова Ирина · Сагдиева Аделя · Ракова Полина · НИУ ВШЭ СПб · 2026</div>
+</body></html>`;
+  const w=window.open('','_blank');w.document.write(html);w.document.close();w.focus();setTimeout(()=>w.print(),600);
+}
+</script>
+</body>
+</html>
